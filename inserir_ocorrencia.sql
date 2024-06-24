@@ -18,5 +18,5 @@ VALUES
     '__ESTADO__',
     '__CEP__',
     '__DATA_OCORRENCIA__',
-    '__OBSERVACAO'
+    '__OBSERVACAO__'
   );
