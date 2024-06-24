@@ -2,7 +2,7 @@
 
 ### Prof. Fábio Contarini Carneiro - Universidade Estácio de Sá
 
-O objetivo deste projeto é criar um banco de dados para registro de buracos em vias públicas. Neste projeto, utilizaremos o PostgreSQL como banco de dados e criaremos duas tabelas para atingir tal objetivo: a tabela `denunciante` (para registro de pessoas que denunciaram), e uma tabela `ocorrencia` (para o registro de ocorrências de fato, neste caso de buracos em via pública).
+O objetivo deste projeto é criar um banco de dados para registro de buracos em vias públicas. Neste projeto, utilizaremos o PostgreSQL como banco de dados e criaremos duas tabelas para atingir tal objetivo: a tabela `denunciante` (para registro de pessoas que denunciaram), e uma tabela `buraco` (para o registro de buracos em via pública).
 
 Para executar o projeto, siga os seguintes passos:
 
@@ -33,7 +33,7 @@ VALUES
 
         psql bd_extensao < inserir_denunciante.sql
 
-7.  Antes de inserir uma ocorrência, é necessário copiarmos o ID do denunciante. Podemos utilizar as seguintes queries para tal fim:
+7.  Antes de inserir um buraco, é necessário copiarmos o ID do denunciante. Podemos utilizar as seguintes queries para tal fim:
 
 ```
 -- Para selecionar todos os denunciantes
@@ -43,11 +43,11 @@ SELECT * FROM denunciante;
 SELECT id FROM usuario WHERE nome = 'João';
 ```
 
-7.  Com o ID do denunciante em mãos, podemos prosseguir para adicionar uma ocorrência. Com o seu editor de texto de preferência abra o arquivo `inserir_ocorrencia.sql` e edite as informações presentes para inserção
+7.  Com o ID do denunciante em mãos, podemos prosseguir para adicionar um buraco. Com o seu editor de texto de preferência abra o arquivo `inserir_buraco.sql` e edite as informações presentes para inserção
 
 ```
 INSERT INTO
-  ocorrencia(
+  buraco(
     denunciante_id,
     endereco,
     referencia,
@@ -55,6 +55,8 @@ INSERT INTO
     estado,
     cep,
     data_ocorrencia,
+    gravidade,
+    tratado,
     observacao
   )
 VALUES
@@ -64,16 +66,30 @@ VALUES
     'Em frente ao restaurante italiano',
     'Rio de Janeiro',
     'Rio de Janeiro',
-    '22070012',
-    '2024-06-24',
+    '123456789',
+    '2024-01-31',
+    'Alta',
+    false,
     'Buraco pequeno mas que atrapalha o trânsito na faixa da direita'
   );
 ```
 
 8.  E finalmente, salve o arquivo e rode a query anterior no banco de dados
 
-        psql bd_extensao < inserir_ocorrencia.sql
+        psql bd_extensao < inserir_buraco.sql
 
-9.  Para verificar todas as ocorrências presentes, rode a seguinte query:
+9.  Para verificar todos os buracos registrados, rode a seguinte query:
 
-        SELECT * FROM ocorrencia;
+        SELECT * FROM buraco;
+
+10. Para verificar todos os buracos tratados, rode a seguinte query:
+
+        SELECT * FROM buraco WHERE tratado = true;
+
+11. Para verificar todos os buracos não tratados, rode a seguinte query:
+
+        SELECT * FROM buraco WHERE tratado = false;
+
+12. Para marcar um buraco como tratado, altere o ID presente no arquivo `tratar_buraco.sql` e execute a query
+
+        UPDATE buraco SET tratado = true WHERE id = 1;

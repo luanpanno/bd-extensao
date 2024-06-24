@@ -1,5 +1,5 @@
 INSERT INTO
-  ocorrencia(
+  buraco(
     denunciante_id,
     endereco,
     referencia,
@@ -7,16 +7,20 @@ INSERT INTO
     estado,
     cep,
     data_ocorrencia,
+    gravidade,
+    tratado,
     observacao
   )
 VALUES
   (
-    '__ID_DENUNCIANTE__',
+    '__DENUNCIANTE_ID',
     '__ENDERECO__',
     '__REFERENCIA__',
     '__CIDADE__',
     '__ESTADO__',
     '__CEP__',
     '__DATA_OCORRENCIA__',
+    '__GRAVIDADE__',
+    '__TRATADO__',
     '__OBSERVACAO__'
   );
